@@ -51,7 +51,8 @@ namespace Minesweeper2.ViewModels
             string difficulty = (string)((Button)obj).Content;
             switch (difficulty)
             {
-                case "Beginner": StartGame(GameBoard.BoardSize.Beginner);
+                case "Beginner":
+                    StartGame(GameBoard.BoardSize.Beginner);
                     break;
                 case "Medium":
                     StartGame(GameBoard.BoardSize.Medium);
@@ -161,7 +162,17 @@ namespace Minesweeper2.ViewModels
             }
             if (i == 10)
             {
-                MessageBox.Show("You win!", "Congrats!");
+                MessageBoxResult result = MessageBox.Show("You win!\nWould you like to play a new Game?", "Congratulations!", MessageBoxButton.YesNo);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        Application.Current.Windows[0].Close();
+                        break;
+                    case MessageBoxResult.No:
+                        Application.Current.Shutdown();
+                        MessageBox.Show("Oh well, too bad!", "My App");
+                        break;
+                }
             }
         }
     }
