@@ -16,8 +16,8 @@ namespace Minesweeper2
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            Window gameWindow = new GameWindow();
-            gameWindow.Show();
+            Window startWindow = new StartWindow();
+            startWindow.Show();
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using Minesweeper2.Models;
+using Minesweeper2.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Minesweeper2.ViewModels
@@ -26,11 +28,44 @@ namespace Minesweeper2.ViewModels
         }
         public ICommand TileClickCommand { get; set; }
         public ICommand SetFlagCommand { get; set; }
+        public ICommand StartGameCommand { get; set; }
         public GameWindowViewModel()
         {
-            GameBoard = new GameBoard(GameBoard.BoardSize.Beginner);
+            StartGameCommand = new RelayCommand(ExecuteStartGame, CanExecuteStartGame);
+        }
+        public void StartGame(GameBoard.BoardSize boardSize)
+        {
+            GameBoard = new GameBoard(boardSize);
             TileClickCommand = new RelayCommand(ExecuteTileClick, CanExecuteTileClick);
             SetFlagCommand = new RelayCommand(ExecuteSetFlag, CanExecuteSetFlag);
+            StartGameCommand = new RelayCommand(ExecuteStartGame, CanExecuteStartGame);
+        }
+
+        private bool CanExecuteStartGame(object arg)
+        {
+            return true;
+        }
+
+        private void ExecuteStartGame(object obj)
+        {
+            string difficulty = (string)((Button)obj).Content;
+            switch (difficulty)
+            {
+                case "Beginner": StartGame(GameBoard.BoardSize.Beginner);
+                    break;
+                case "Medium":
+                    StartGame(GameBoard.BoardSize.Medium);
+                    break;
+                case "Difficult":
+                    StartGame(GameBoard.BoardSize.Difficult);
+                    break;
+                default:
+                    break;
+            }
+            Window gameWindow = new GameWindow();
+            gameWindow.DataContext = this;
+            gameWindow.Show();
+            Application.Current.Windows[0].Close();
         }
 
         private bool CanExecuteSetFlag(object arg)

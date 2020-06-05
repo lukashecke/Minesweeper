@@ -1,6 +1,7 @@
 ﻿using Minesweeper2.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,12 @@ namespace Minesweeper2.Views
         {
             this.DataContext = new GameWindowViewModel();
             InitializeComponent();
+        }
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            Window startWindow = new StartWindow();
+            startWindow.Show();
         }
     }
 }

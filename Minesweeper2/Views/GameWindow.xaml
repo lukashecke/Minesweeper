@@ -6,7 +6,8 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:Minesweeper2.Views"
         mc:Ignorable="d"
-        Title="GameWindow" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight">
+        Title="GameWindow" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ControlTemplate x:Key="ButtonControlTemplate1" TargetType="{x:Type Button}">
             <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
@@ -53,7 +54,7 @@
                             Uid="{Binding ID}"
                             Command="{Binding DataContext.TileClickCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}"
                             CommandParameter="{Binding ElementName=PART_Button, Path=Uid}"
-                            Width="50" Height="50" BorderThickness="0" Background="Transparent" Template="{DynamicResource ButtonControlTemplate1}">
+                            Width="40" Height="40" BorderThickness="0" Background="Transparent" Template="{DynamicResource ButtonControlTemplate1}">
                         <i:Interaction.Triggers> 
                             <i:EventTrigger EventName="MouseRightButtonDown">
                                 <i:InvokeCommandAction Command="{Binding DataContext.SetFlagCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}"
