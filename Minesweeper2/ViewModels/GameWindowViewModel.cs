@@ -106,7 +106,16 @@ namespace Minesweeper2.ViewModels
             if (tile.HasMine)
             {
                 tile.Image = "/Images/mine.png";
-                MessageBox.Show("You lose!", "Boom!");
+                MessageBoxResult result = MessageBox.Show("You lose!\nWould you like to start a new Game?", "Boom!", MessageBoxButton.YesNo);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        Application.Current.Windows[0].Close();
+                        break;
+                    case MessageBoxResult.No:
+                        Application.Current.Shutdown();
+                        break;
+                }
             }
             else if (tile.AdjacentMines != 0)
             {
@@ -170,7 +179,6 @@ namespace Minesweeper2.ViewModels
                         break;
                     case MessageBoxResult.No:
                         Application.Current.Shutdown();
-                        MessageBox.Show("Oh well, too bad!", "My App");
                         break;
                 }
             }
